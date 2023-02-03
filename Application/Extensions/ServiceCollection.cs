@@ -1,5 +1,7 @@
 ﻿using Application.Authentication;
 using Application.Authentication.Abstractions;
+using Application.Services;
+using Application.Services.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Extensions
@@ -9,6 +11,7 @@ namespace Application.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

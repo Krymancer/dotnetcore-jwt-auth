@@ -2,6 +2,7 @@
 using Application.Authentication.Common.Requests;
 using Application.Authentication.Common.Responses;
 using Application.Configuration;
+using Application.Services.Abstractions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,16 +14,19 @@ namespace Application.Authentication
     public class AuthenticationManager : IAuthenticationManager
     {
         private readonly JwtConfiguration _jwtConfiguration;
+        private readonly IUserService _userService;
+
         private const int TOKEN_DURATION_IN_MINUTES = 5;
-        public AuthenticationManager(IOptions<JwtConfiguration> jwtConfiguration) 
+        public AuthenticationManager(IOptions<JwtConfiguration> jwtConfiguration, IUserService userService) 
         { 
             _jwtConfiguration = jwtConfiguration.Value;
+            _userService = userService;
         }
         
 
         public AuthorizationResponse Authenticate(AuthorizationRequest request)
         {
-            if(request.Username == "admin" && request.Username == "admin" )
+            if(_userService.VerifyUser(request.Username,request.Password))
             {
                 var secret = Encoding.UTF8.GetBytes(_jwtConfiguration.Secret);
                 var audience = _jwtConfiguration.Audience;
