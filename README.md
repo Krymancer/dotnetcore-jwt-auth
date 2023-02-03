@@ -7,3 +7,7 @@ After that the JWT Token is verifyed in a Service injected within the api applic
 
 # How to Run
 Clone then run with Visual Studio + Docker
+
+# Disclaimer
+
+PLEASE, by no means use this project way to verify user in a real world application, this is just a example, i can make very weird thins for educational purposes only :)
